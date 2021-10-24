@@ -2,11 +2,11 @@
 # A very simple Flask Hello World app for you to get started with...
 import sys
 from flask import *
-import smtplib
-import time
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
+# import smtplib
+# import time
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
+# from email.mime.base import MIMEBase
 
 app = Flask(__name__)
 
@@ -62,21 +62,36 @@ def contact():
     tw.submit('login')
     tw.go('https://practiceit.cs.washington.edu/user/problems-solved')
 
-    s = [l.split('</a>')[0][1:].split(':')[0] for l in tw.show().split('BJP4')[1:]][1::2]
-    calendar = ['10/15']
-    due = [[]]
-    for i in range(1,10):
-        due[0].append('Exercise 5.0'+str(i))
+    s = [l.split('</a>')[0][1:].split(':')[0] for l in tw.show().split('BJP4')[1:]][1::2] # completed exercises
+    calendar = get_calendar()
     send =[]
-    for i in range(len(calendar)):
+    for date,due in calendar:
         done = []
         ndone = []
-        for k in due[i]: 
+        for k in due: 
             if k in s:
                 done.append(k)
             else:
                 ndone.append(k)
-        l = [calendar[i],'Done: '+str(done),'Not Done: '+str(ndone)]
+        l = [date,'Done: '+str(done),'Not Done: '+str(ndone)]
         send.append(l)
     print(send)
+    tw.reset_browser()
     return render_template('exercises.html',send=send)
+
+def get_calendar():
+    l = open('calendar.txt','r').read().strip().split('\n\n')
+    calendar = []
+    for day in l:
+        day = day.split('\n')
+        date,day = day[0],day[1:]
+        ex = []
+        for row in day:
+            start = 'Self-Check' if row.split()[0] == 'SC' else 'Exercise'
+            for ch in row.split()[1].split(','):
+                a,b = map(int,ch.split('.'))
+                ex.append(f'{start} {a}.{b:02d}')
+        calendar.append([date,ex])
+    return calendar
+print(get_calendar())
+
