@@ -1,4 +1,3 @@
-
 # A very simple Flask Hello World app for you to get started with...
 import sys
 from flask import *
@@ -73,7 +72,7 @@ def contact():
                 done.append(k)
             else:
                 ndone.append(k)
-        l = [date,'Done: '+str(done),'Not Done: '+str(ndone)]
+        l = [date,done,ndone]
         send.append(l)
     print(send)
     tw.reset_browser()
@@ -93,5 +92,4 @@ def get_calendar():
                 ex.append(f'{start} {a}.{b:02d}')
         calendar.append([date,ex])
     return calendar
-print(get_calendar())
-
+# print(get_calendar())

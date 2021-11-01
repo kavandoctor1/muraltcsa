@@ -90,7 +90,6 @@
                <div class="col-md-12">
                   <div class="titlepage">
                      <h2 style='font-size:75px'>Exercises Done</h2>
-                     <br>
                      <!-- <span>{{send}}</span> -->
                   </div>
                </div>
@@ -114,9 +113,35 @@
                <div class="col-md-12">
                   <div class="titlepage">
                      {% for r in send %}
-                        <h2>{{r[0]}}</h2>
-                        <span>{{r[1]}}</span> <br><br>
-                        <span>{{r[2]}}</span>
+                     <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="{{'#' ~ r[0]}}" aria-expanded="true" aria-controls="{{r[0]}}">
+                              <h2>{{r[0]}}</h2>
+                            </button>
+                          </h2>
+                        </div>
+                    
+                        <div id="{{ r[0] }}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                           <h3> Done: </h3>
+                           {% for ex in r[1] %}
+                           <span>{{ex}}</span> <br>
+                           {% endfor %} <br>
+                           <h3> Not Done: </h3>
+                           {% for ex in r[2] %}
+                           <span>{{ex}}</span> <br>
+                           {% endfor %} <br>
+                           
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+
+                     
+                        
+                        
+                        <!-- <span>{{r[2]}}</span> -->
                      {% endfor %}
                      
                      <span></span>
