@@ -1,62 +1,75 @@
-# A very simple Flask Hello World app for you to get started with...
 import sys
 from flask import *
-# import smtplib
-# import time
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
-# from email.mime.base import MIMEBase
-
+import flask
+import flask_login
+import os
 app = Flask(__name__)
+
+login_manager = flask_login.LoginManager()
+app.secret_key = os.urandom(24)
+login_manager.init_app(app)
+users = {'kavandoctor': {'password': 'kavandoctor1'}}
+
+class User(flask_login.UserMixin):
+    pass
+@login_manager.user_loader
+def user_loader(email):
+    if email not in users:
+        return
+    user = User()
+    user.id = email
+    return user
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if flask.request.method == 'GET':
+        return render_template('login.html',incorrect = False)
+
+    email = flask.request.form['email']
+    if email in users and flask.request.form['password'] == users[email]['password']:
+        user = User()
+        user.id = email
+        flask_login.login_user(user)
+        return flask.redirect('/find')
+    else:
+        return render_template('login.html',incorrect=True)
+
+@app.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return 'Logged out'
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return redirect('/login')
+
+@login_manager.request_loader
+def request_loader(request):
+    email = request.form.get('email')
+    if email not in users:
+        return
+    user = User()
+    user.id = email
+    return user
+
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# @app.route('/book')
-# def book():
-#     return render_template('book.html')
-
-# @app.route('/download')
-# def downloadFile ():
-#     path = "static/Olympiad_Combinatorics.pdf"
-#     x = int(open('/home/pranavsriram/mysite/downloadcounter.txt','r').read().strip())
-#     open('/home/pranavsriram/mysite/downloadcounter.txt','w').write(str(x+1))
-#     print(x,x+1)
-#     return send_file(path, as_attachment=True)
-
-# @app.route('/contact',methods=['POST'])
-# def contact():
-#     print(request.data,file=sys.stderr)
-#     name = request.form.get('Name')
-#     email = request.form.get('Email')
-#     message = request.form.get('Message')
-#     print(name,email,message,file=sys.stderr)
-#     title = f'{name} sent you a message'
-#     body = f'Message from {name}, with email address {email}: \n\n' + message
-#     receiver = 'kavandoctor@gmail.com'
-#     server = smtplib.SMTP('smtp.googlemail.com',587)
-#     server.starttls()
-#     server.login('pranavwebsiteemailbot@gmail.com','pranavsriram1')
-#     msg = MIMEMultipart()
-#     msg['Subject'] = title
-#     msg.attach(MIMEText(body,'plain'))
-#     text = msg.as_string()
-#     server.sendmail("meme",receiver, text)
-#     server.quit()
-#     return redirect('/')
 import twill.commands as tw
 
-@app.route('/find',methods=['POST'])
+@app.route('/find',methods=['GET'])
+@flask_login.login_required
 def contact():
     print(request.data,file=sys.stderr)
-    user = request.form.get('username')
-    password = request.form.get('password')
+    username = flask_login.current_user.id
+    password = users[username]['password']
     # tw.follow('https://practiceit.cs.washington.edu/user/problems-solved')
 
     tw.go('http://practiceit.cs.washington.edu/login')
 
-    tw.fv("1", "usernameoremail", user)
+    tw.fv("1", "usernameoremail", username)
     tw.fv("1", "password", password)
     tw.submit('login')
     tw.go('https://practiceit.cs.washington.edu/user/problems-solved')
