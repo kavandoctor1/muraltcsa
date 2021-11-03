@@ -9,9 +9,7 @@
        <div class="row">
           <div class="col-md-12">
              <div class="titlepage">
-                <h2>Login</h2>
-                <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br> -->
-                <!-- incididunt ut labore et dolore magna</span> -->
+                <h2>Register</h2>
              </div>
           </div>
           <div class="row">
@@ -19,7 +17,7 @@
                 <div class="black_bg">
                    <div class="row">
                       <div class="col-md-7 ">
-                         <form class="main_form" action ='/login' method = 'post'>
+                         <form class="main_form" action ='/register' method = 'post'>
                             <div class="row">
                                <div class="col-md-12 ">
                                   <input class="contactus" placeholder="Username" type="text" name="username">
@@ -27,6 +25,12 @@
                                <div class="col-md-12">
                                   <input class="contactus" placeholder="Password" type="password" name="password">
                                </div>
+                               <div class="col-md-12 ">
+                                <input class="contactus" placeholder="Coding Bat Username/Email" type="text" name="cbusername">
+                             </div>
+                             <div class="col-md-12">
+                                <input class="contactus" placeholder="Coding Bat Password" type="password" name="cbpassword">
+                             </div>
                                <div class="col-sm-12">
                                   <button class="send_btn" type = 'submit'>Send</button>
                                </div>
@@ -42,6 +46,10 @@
  </div>
  <br>
  {% if incorrect %}
- <h2 style="color:red; text-align:center; font-size:30px">Incorrect Email or Password!</h2>
+ <h2 style="color:red; text-align:center; font-size:30px">Incorrect Coding Bat Email or Password!</h2>
+ {% endif %}
+ <br>
+ {% if exists %}
+ <h2 style="color:red; text-align:center; font-size:30px">Username already exists!</h2>
  {% endif %}
 {% endblock %}
