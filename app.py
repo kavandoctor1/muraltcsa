@@ -3,6 +3,7 @@ from flask import *
 import flask
 import flask_login
 import os
+import twill.commands as tw
 app = Flask(__name__)
 login_manager = flask_login.LoginManager()
 app.secret_key = os.urandom(24)
@@ -84,7 +85,7 @@ def request_loader(request):
 def home():
     return render_template('index.html')
 
-import twill.commands as tw
+
 
 @app.route('/find',methods=['GET'])
 @flask_login.login_required
