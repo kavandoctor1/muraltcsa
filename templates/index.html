@@ -1,60 +1,196 @@
-{% extends "layout.html" %}
 {% block banner %}
-<div class="container-fluid">
-   <div class="row d_flex">
-      <div class="col-md-5">
-         <div class="text-bg">
-            <h1>Muralt's CSA Homepage</h1>
-         </div>
-      </div>
-      <div class="col-md-7 padding_right1">
-         <div class="text-img">
-            <figure><img src="{{url_for('static', filename='images/muralt.png')}}" alt="#"/></figure>
-            <!-- <h3>01</h3> -->
-         </div>
-      </div>
-   </div>
-</div>
+<title> Muralt CSA </title>
 {% endblock %}
-{% block main %}
-<!-- <div id="contact" class="request">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="titlepage">
-               <h2>What exercises did you do?</h2>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-sm-12">
-               <div class="black_bg">
-                  <div class="row">
-                     <div class="col-md-7 ">
-                        <form class="main_form" action ='/find' method = 'post'>
-                           <div class="row">
-                              <div class="col-md-12 ">
-                                 <input class="contactus" placeholder="Username" type="text" name="username">
-                              </div>
-                              <div class="col-md-12">
-                                 <input class="contactus" placeholder="Password" type="password" name="password">
-                              </div>
-                              <div class="col-sm-12">
-                                 <button class="send_btn" type = 'submit'>Send</button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                     <div class="col-md-5">
+<!-- Parallax -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/all.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tailwind.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-antique-cafe.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                        <div class="mane_img">
-                           <figure><img src="{{url_for('static', filename='images/muralt.png')}}" alt="#"/></figure>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
+<style>
+body
+{
+   overflow: overlay;
+   padding:0;
+   margin:0;
+}
+
+.img {
+   display: block;
+   margin: 0 auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+   background: transparent;
+   width: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+   border-radius: 10px; 
+  background: rgb(161, 161, 161); 
+}
+
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   border-radius: 10px; 
+  background: rgb(109, 109, 109); 
+}
+
+.parallaximg1 {
+  /* The image used */
+  background-image: url("{{url_for('static', filename='images/index.jpg')}}");
+
+  /* Set a specific height */
+  height: 100%;
+  min-height: 1000px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.javalogo{
+
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}
+.parallaximg2 {
+  /* The image used */
+  background-image: url("{{url_for('static', filename='images/notebook.png')}}");
+
+  /* Set a specific height */
+  height: 100%;
+  min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+{% block main %}
+<nav id="tm-nav" class="fixed w-full">
+   <div class="tm-container mx-auto px-2 md:py-6 text-right">
+       <button class="md:hidden py-2 px-2" id="menu-toggle"><i class="fas fa-2x fa-bars tm-text-white tm-nav ul"></i></button>
+       <ul class="mb-3 md:mb-0 text-2xl font-normal flex justify-end flex-col md:flex-row" style="font-family:Lato">
+           <li class="inline-block mb-4 mx-4"><a href="/" class="tm-text-white py-1 md:py-3 px-4 current">Home</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/login" class="tm-text-white py-1 md:py-3 px-4">Login</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/register" class="tm-text-white py-1 md:py-3 px-4">Register</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/find" class="tm-text-white py-1 md:py-3 px-4">Calendar</a></li>
+       </ul>
    </div>
-</div> -->
+</nav>
+<div id="">
+<div class="parallaximg1"> <!-- Prints the parallax image --> 
+   <div class="container mx-auto px-2 tm-intro-width">
+      <div class="sm:pb-60 sm:pt-48 py-20">
+         <!-- I need some way of replacing the center tag but nothing else I've tried works -->
+         <center> <img class = "javalogo" style = "padding-bottom:20px; " src = "{{url_for('static', filename='images/java.png')}}"> </center>
+          <div class="bg-black bg-opacity-70 p-12 mb-5 text-center">
+              <h1 class="text-white  mb-5"><span style="font-family: 'Baloo Chettan',cursive; font-weight: 1000;font-size:50px;"><b> Muralt's CSA</b></span></h1>
+              <p class="tm-text-gold tm-text-2xl" style="font-family: 'Baloo Chettan', cursive;">Calendar & Coffee</p>
+          </div>    
+          <div class="bg-black bg-opacity-70 p-10 mb-5">
+               <p class="text-white leading-8 text-sm font-light" style="text-align:center;font-family: 'Baloo Chettan', cursive;">
+                  An All-Purpose Calendar and Homework-Checker for Muralt's AP CSA Class
+                  <br><br>
+                  And some much needed coffee
+               </p>
+          </div>               
+      </div>
+  </div>   
+</div>
+
+<div class="parallaximg2">
+    <div class="container mx-auto tm-intro-width py-20 sm:py-40 ">
+        <div class="tm-item-container sm:ml-auto sm:mr-12 mx-auto sm:px-0 px-4">
+            <div class="bg-black bg-opacity-80 p-12 pb-14 rounded-xl mb-5">
+                <h2 class="mb-6 tm-text-yellow text-4xl font-medium" style="font-family: 'Baloo Chettan', cursive;">Login or Signup</h2>
+                <h3 class="mb-6 tm-text-white text-base leading-8" style="font-family: 'Baloo Chettan', cursive;">
+                    With your Coding Bat account in order to use the calendar and other features on this website. Best of luck coding!
+                </h3>
+                <!-- <p class="text-base leading-8"> -->
+                    <!-- This website was layed-out and programmed by Kavan Doctor and designed by William Ou. Follow us on social media: (I don't know if you actually want to link social media but just an idea) </p> -->
+            </div style = "text-align:center">
+            <a href="/login" class="inline-block tm-bg-green transition text-white text-xl rounded-md pt-3 pb-4" style = "height:50px;width:190px;text-align:center;vertical-align:center;">
+                Login
+            </a>
+            <a href="/register" class="inline-block tm-bg-green transition text-white text-xl rounded-md pt-3 pb-4" style = "height:50px;width:190px;text-align:center;vertical-align:center;">
+                Register
+            </a>
+        </div>           
+    </div>
+</div>
+
+<!-- <footer class="absolute bottom-0 left-0 w-full">
+   <div class="text-white container mx-auto tm-container p-8 text-lg flex flex-col md:flex-row justify-between">
+       <span>Copyright 2022 Kavan Doctor & William Ou</span>
+       <span class="mt-5 md:mt-0">Template by: <a href="https://www.tooplate.com" target="_parent">Tooplate</a></span>
+   </div>                
+</footer> -->
+
+<script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/parallax.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.singlePageNav.min.js')}}"></script>
+    <script>
+
+        function checkAndShowHideMenu() {
+            if(window.innerWidth < 768) {
+                $('#tm-nav ul').addClass('hidden');                
+            } else {
+                $('#tm-nav ul').removeClass('hidden');
+            }
+        }
+
+        $(function(){
+            var tmNav = $('#tm-nav');
+
+            checkAndShowHideMenu();
+            window.addEventListener('resize', checkAndShowHideMenu);
+
+            $('#menu-toggle').click(function(){
+                $('#tm-nav ul').toggleClass('hidden');
+            });
+
+            $('#tm-nav ul li').click(function(){
+                if(window.innerWidth < 768) {
+                    $('#tm-nav ul').addClass('hidden');
+                }                
+            });
+
+            $(document).scroll(function() {
+                var distanceFromTop = $(document).scrollTop();
+
+                if(distanceFromTop > 100) {
+                    tmNav.addClass('scroll');
+                } else {
+                    tmNav.removeClass('scroll');
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</div>
+
+
 {% endblock %}

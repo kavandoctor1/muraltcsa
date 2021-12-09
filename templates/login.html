@@ -1,47 +1,147 @@
-{% extends "layout.html" %}
 {% block banner %}
-
+<title> Muralt CSA </title>
 {% endblock %}
 {% block main %}
-   <br>
-   <div id="contact" class="request">
-    <div class="container">
-       <div class="row">
-          <div class="col-md-12">
-             <div class="titlepage">
-                <h2>Login</h2>
-                <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br> -->
-                <!-- incididunt ut labore et dolore magna</span> -->
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-sm-12">
-                <div class="black_bg">
-                   <div class="row">
-                      <div class="col-md-7 ">
-                         <form class="main_form" action ='/login' method = 'post'>
-                            <div class="row">
-                               <div class="col-md-12 ">
-                                  <input class="contactus" placeholder="Username" type="text" name="username">
-                               </div>
-                               <div class="col-md-12">
-                                  <input class="contactus" placeholder="Password" type="password" name="password">
-                               </div>
-                               <div class="col-sm-12">
-                                  <button class="send_btn" type = 'submit'>Send</button>
-                               </div>
-                            </div>
-                         </form>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
+<link rel="stylesheet" href="{{url_for('static', filename='css/all.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tailwind.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-antique-cafe.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    body {
+   overflow: overlay;
+   padding:0;
+   margin:0;
+}
+
+    .parallaximg1 {
+    /* The image used */
+    background-image: url("{{url_for('static', filename='images/login.jpg')}}");
+
+    /* Set a specific height */
+    height: 100%;
+    min-height: 1000px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* width */
+::-webkit-scrollbar {
+   background: transparent;
+   width: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+   border-radius: 10px; 
+  background: rgb(161, 161, 161); 
+}
+
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   border-radius: 10px; 
+  background: rgb(109, 109, 109); 
+}
+</style>
+
+<nav id="tm-nav" class="fixed w-full">
+   <div class="tm-container mx-auto px-2 md:py-6 text-right">
+       <button class="md:hidden py-2 px-2" id="menu-toggle"><i class="fas fa-2x fa-bars tm-text-white tm-nav ul"></i></button>
+       <ul class="mb-3 md:mb-0 text-2xl font-normal flex justify-end flex-col md:flex-row" style="font-family:Lato">
+           <li class="inline-block mb-4 mx-4"><a href="/" class="tm-text-white py-1 md:py-3 px-4">Home</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/login" class="tm-text-white py-1 md:py-3 px-4 current">Login</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/register" class="tm-text-white py-1 md:py-3 px-4">Register</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/find" class="tm-text-white py-1 md:py-3 px-4">Calendar</a></li>
+       </ul>
+   </div>
+</nav>
+
+<div id="login" class="parallaximg1">
+    <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br> -->
+    <!-- incididunt ut labore et dolore magna</span> -->
+    <div class="container mx-auto" style="width:40%; padding-top:5%">
+        <div class="flex flex-col lg:flex-row justify-around items-center lg:items-stretch">
+            <div class="flex-1 rounded-xl p-12 pb-14 m-5 bg-black bg-opacity-50 tm-item-container" style="text-align: center;color:white; font-style:Lato">
+                <h2 style="font-size:40px">Login</h2>
+                <br>
+                <p style="font-size:24px"> If you have not yet registered an account, please do so before logging in </p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row justify-around items-center lg:items-stretch">
+            <div class="flex-1 rounded-xl p-12 pb-14 m-5 bg-black bg-opacity-50 tm-item-container">
+                <br>
+                <form class="text-lg" action ='/login' method = 'post'>
+                    <input placeholder="Username" type="text" name="username" class="input w-full bg-black border-b bg-opacity-0 text-white px-0 py-4 mb-4 tm-border-gold">
+                    <input placeholder="Password" type="password" name="password" class="input w-full bg-black border-b bg-opacity-0 text-white px-0 py-4 mb-4 tm-border-gold">
+                    <button class="text-white hover:text-yellow-500 transition" type = 'submit' style="font-size:24px">Log In</button>
+                    </form>
+            </div>
+        </div>
+        {% if incorrect %}
+            <h2 style="color:red; text-align:center; font-size:30px">Incorrect Email or Password!</h2>
+        {% endif %}
     </div>
- </div>
- <br>
- {% if incorrect %}
- <h2 style="color:red; text-align:center; font-size:30px">Incorrect Email or Password!</h2>
- {% endif %}
-{% endblock %}
+    {% endblock %}        
+</div>    
+
+<script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/parallax.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.singlePageNav.min.js')}}"></script>
+    <script>
+
+        function checkAndShowHideMenu() {
+            if(window.innerWidth < 768) {
+                $('#tm-nav ul').addClass('hidden');                
+            } else {
+                $('#tm-nav ul').removeClass('hidden');
+            }
+        }
+
+        $(function(){
+            var tmNav = $('#tm-nav');
+
+            checkAndShowHideMenu();
+            window.addEventListener('resize', checkAndShowHideMenu);
+
+            $('#menu-toggle').click(function(){
+                $('#tm-nav ul').toggleClass('hidden');
+            });
+
+            $('#tm-nav ul li').click(function(){
+                if(window.innerWidth < 768) {
+                    $('#tm-nav ul').addClass('hidden');
+                }                
+            });
+
+            $(document).scroll(function() {
+                var distanceFromTop = $(document).scrollTop();
+
+                if(distanceFromTop > 50) {
+                    tmNav.addClass('scroll');
+                } else {
+                    tmNav.removeClass('scroll');
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>

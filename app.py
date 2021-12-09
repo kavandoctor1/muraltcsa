@@ -145,4 +145,3 @@ def get_calendar():
         calendar.append([date,ex])
     return calendar
 # print(get_calendar())
-

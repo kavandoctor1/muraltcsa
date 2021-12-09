@@ -1,8 +1,56 @@
 {% extends "layout.html" %}
 {% block banner %}
-
+<title> Muralt CSA </title>
 {% endblock %}
 {% block main %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/all.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tailwind.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-antique-cafe.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    body {
+   overflow: overlay;
+   padding:0;
+   margin:0;
+}
+
+/* width */
+::-webkit-scrollbar {
+   background: transparent;
+   width: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+   border-radius: 10px; 
+  background: rgb(161, 161, 161); 
+}
+
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   border-radius: 10px; 
+  background: rgb(109, 109, 109); 
+}
+</style>
+
+<nav id="tm-nav" class="fixed w-full">
+   <div class="tm-container mx-auto px-2 md:py-6 text-right">
+       <button class="md:hidden py-2 px-2" id="menu-toggle"><i class="fas fa-2x fa-bars tm-text-white tm-nav ul"></i></button>
+       <ul class="mb-3 md:mb-0 text-2xl font-normal flex justify-end flex-col md:flex-row" style="font-family:Lato">
+           <li class="inline-block mb-4 mx-4"><a href="/" class="tm-text-white py-1 md:py-3 px-4">Home</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/login" class="tm-text-white py-1 md:py-3 px-4">Login</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/register" class="tm-text-white py-1 md:py-3 px-4">Register</a></li>
+           <li class="inline-block mb-4 mx-4"><a href="/find" class="tm-text-white py-1 md:py-3 px-4 current">Calendar</a></li>
+       </ul>
+   </div>
+</nav>
    <br>
       <div id="book" class="about">
          <div class="container">
@@ -52,7 +100,7 @@
                            {% endfor %} <br>
                            </div>
 
-                           <h3> Not Done: </h3>
+                           <h3> Incomplete: </h3>
                            {% for ex in r[2] %}
                            <span>{{ex}}</span> <br>
                            {% endfor %} <br>
@@ -91,4 +139,54 @@
       });
    }
 </script>
+<script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/parallax.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.singlePageNav.min.js')}}"></script>
+    <script>
+
+        function checkAndShowHideMenu() {
+            if(window.innerWidth < 768) {
+                $('#tm-nav ul').addClass('hidden');                
+            } else {
+                $('#tm-nav ul').removeClass('hidden');
+            }
+        }
+
+        $(function(){
+            var tmNav = $('#tm-nav');
+
+            checkAndShowHideMenu();
+            window.addEventListener('resize', checkAndShowHideMenu);
+
+            $('#menu-toggle').click(function(){
+                $('#tm-nav ul').toggleClass('hidden');
+            });
+
+            $('#tm-nav ul li').click(function(){
+                if(window.innerWidth < 768) {
+                    $('#tm-nav ul').addClass('hidden');
+                }                
+            });
+
+            $(document).scroll(function() {
+                var distanceFromTop = $(document).scrollTop();
+
+                if(distanceFromTop > 100) {
+                    tmNav.addClass('scroll');
+                } else {
+                    tmNav.removeClass('scroll');
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
 {% endblock %}
