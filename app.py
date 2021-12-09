@@ -9,7 +9,11 @@ login_manager = flask_login.LoginManager()
 app.secret_key = os.urandom(24)
 login_manager.init_app(app)
 def load_users():
-    USERS = eval(open('users.txt','r').read())
+    try:
+        USERS = eval(open('users.txt','r').read())
+    except:
+        USERS = {}
+        open('users.txt','w').close()
     return USERS
 def save_users(USERS):
     open('users.txt','w').write(str(USERS))
