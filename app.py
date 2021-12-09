@@ -90,7 +90,7 @@ def home():
 @app.route('/find',methods=['GET'])
 @flask_login.login_required
 def exercises():
-    print(request.data,file=sys.stderr)
+    # print(request.data,file=sys.stderr)
     USERS = load_users()
     username = flask_login.current_user.id
     cbusername = USERS[username]['cbusername']
